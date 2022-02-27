@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Success from "./Success";
+import Fail from "./Fail";
 import CircularProgress from "@mui/material/CircularProgress";
-import Alert from "@mui/material/Alert";
+import "../styles/Verification.css";
 
 /* Simulates latency/delay */
 function timeout(delay) {
@@ -27,20 +29,9 @@ function getResponse() {
 }
 
 function Verification() {
-  const [isWaiting, setIsWaiting] = useState(true);
+  const [isWaiting, setIsWaiting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [status, setStatus] = useState(0);
-
-  useEffect(() => {
-    getResponseWithLatency().then((response) => {
-      console.log("Response:", response);
-      if (response.status === 200) {
-        setIsSuccess(true);
-      } else {
-        setIsSuccess(false);
-      }
-    });
-  }, []);
+  const [show, setShow] = useState(false);
 
   /* Simulates getting data with latency */
   async function getResponseWithLatency() {
@@ -54,44 +45,27 @@ function Verification() {
     return response;
   }
 
-  function displayAlert() {
-    if (status === 0) {
-      return <p>No status to be displayed.</p>;
-    } else if (status === 1) {
-      return (
-        <Alert severity="success">
-          You have signed up succesfully! You will be redirected in just a
-          moment.
-        </Alert>
-      );
-    } else {
-      return (
-        <Alert severity="error">
-          Failed to sign up. Your information is invalid.
-        </Alert>
-      );
-    }
-  }
-
-  function handleClick() {
-    if (isSuccess) {
-      setStatus(1);
-    } else {
-      setStatus(-1);
-    }
-  }
+  const handleClick = () => {
+    setShow(false);
+    getResponseWithLatency().then((response) => {
+      //console.log("Response:", response);
+      if (response.status === 200) {
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
+      setShow(true);
+    });
+  };
 
   return (
     <div className="verification">
-      <p>Sign up verification.</p>
-      {isWaiting && <CircularProgress color="inherit" />}
-      <button onClick={handleClick}>Check my status</button>
-      {isSuccess ? (
-        <p>You will be redirected shortly.</p>
-      ) : (
-        <p>You have failed to sign up. Please check your information again.</p>
-      )}
-      {displayAlert()}
+      <p className="title">Sign up verification.</p>
+      <button className="signup-button" onClick={handleClick}>
+        Sign Up
+      </button>
+      {isWaiting && <CircularProgress className="progress" color="inherit" />}
+      {show && (isSuccess ? <Success /> : <Fail />)}
     </div>
   );
 }
