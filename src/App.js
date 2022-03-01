@@ -1,4 +1,3 @@
-import Icons from "./components/Icons";
 import Verification from "./components/Verification";
 import "./App.css";
 
