@@ -47,12 +47,7 @@ function Verification() {
   const handleClickSignup = () => {
     setShow(false);
     getResponseWithLatency().then((response) => {
-      //console.log("Response:", response);
-      if (response.status === 200) {
-        setIsSuccess(true);
-      } else {
-        setIsSuccess(false);
-      }
+      response.status === 200 ? setIsSuccess(true) : setIsSuccess(false);
       setShow(true);
     });
   };
