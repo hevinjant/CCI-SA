@@ -9,7 +9,7 @@ function Result({ isSuccess }) {
     setShow((prevShow) => !prevShow);
   };
 
-  function displayResult(isSuccess) {
+  function displayResult() {
     if (isSuccess) {
       return (
         <div className="result">
@@ -43,7 +43,7 @@ function Result({ isSuccess }) {
 
   return (
     <div className="result-container">
-      {displayResult(isSuccess)}
+      {displayResult()}
       <button onClick={handleClickCheckStatus}>Check my status</button>
     </div>
   );

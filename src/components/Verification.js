@@ -21,7 +21,8 @@ function getResponse() {
       },
     };
   }
-  return {
+  //throw "Verification error: user failed to sign up.";
+  throw {
     status: 204,
     data: {},
   };
@@ -37,11 +38,14 @@ function Verification() {
     setIsWaiting(true);
 
     await timeout(3000); // 3 seconds
-    const response = getResponse();
-
-    setIsWaiting(false);
-
-    return response;
+    try {
+      const response = getResponse();
+      setIsWaiting(false);
+      return response;
+    } catch (error) {
+      setIsWaiting(false);
+      return error;
+    }
   }
 
   const handleClickSignup = () => {
