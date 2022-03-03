@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Success from "./Success";
-import Fail from "./Fail";
+import Result from "./Result";
 import CircularProgress from "@mui/material/CircularProgress";
 import "../styles/Verification.css";
 
@@ -45,7 +44,7 @@ function Verification() {
     return response;
   }
 
-  const handleClick = () => {
+  const handleClickSignup = () => {
     setShow(false);
     getResponseWithLatency().then((response) => {
       //console.log("Response:", response);
@@ -61,11 +60,11 @@ function Verification() {
   return (
     <div className="verification">
       <p className="title">Sign up verification.</p>
-      <button className="signup-button" onClick={handleClick}>
+      <button className="signup-button" onClick={handleClickSignup}>
         Sign Up
       </button>
       {isWaiting && <CircularProgress className="progress" color="inherit" />}
-      {show && (isSuccess ? <Success /> : <Fail />)}
+      {show && <Result isSuccess={isSuccess} />}
     </div>
   );
 }

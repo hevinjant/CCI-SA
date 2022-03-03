@@ -1,0 +1,31 @@
+.result-container {
+  background-color: var(--primary-white);
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-container button {
+  color: white;
+  font-weight: 700;
+  font-size: clamp(12px, 1vw, 15px);
+  padding: 7px 10px 7px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--light-blue);
+}
+
+.result-container button:hover {
+  background-color: var(--hover-blue);
+}
+
+.result-container .result .alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-weight: 700;
+  padding: 1px;
+  border-radius: 0;
+}
